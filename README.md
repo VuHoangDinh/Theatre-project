@@ -1,3 +1,9 @@
+This webpage was built to provide information of available movies from Finkino in Finland.
+There are some funtions in this project, such as:
+  + sort by name of theatre ( on fixing)
+  + fletch all data provided from Finnkino XML => show all infomation of movies
+  + add to cart funtion
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
