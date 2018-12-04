@@ -15,13 +15,13 @@ class CarouselComponent extends Component {
                     {/* The slideshow */}
                     <div className="carousel-inner">
                         <div className="carousel-item active">
-                            <img src="./img/slide_1.jpg" alt="film 1" width={1100} height={500} />
+                            <img src="./img/slide_1.jpg" alt="Los Angeles" width={1100} height={500} />
                         </div>
                         <div className="carousel-item">
-                            <img src="./img/slide_2.jpg" alt="film 2" width={1100} height={500} />
+                            <img src="./img/slide_2.jpg" alt="Chicago" width={1100} height={500} />
                         </div>
                         <div className="carousel-item">
-                            <img src="./img/slide_3.jpg" alt="film 3" width={1100} height={500} />
+                            <img src="./img/slide_3.jpg" alt="New York" width={1100} height={500} />
                         </div>
                     </div>
                     {/* Left and right controls */}

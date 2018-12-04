@@ -17,15 +17,9 @@ class film extends Component {
 
     filmArr = [];
     theatreArr = [];
-    testList = ['a'];
+    filterArr = [];
 
     componentDidMount() {
-        this.passTheatres(this.state.theatreList)
-        console.log(this.state.theatreList);
-    }
-
-
-    componentWillMount() {
         //////////////////
         ////FETCH DATA////         
         //////////////////
@@ -35,13 +29,13 @@ class film extends Component {
             .then(data => {
                 let parser = new DOMParser();
                 data = parser.parseFromString(data, "text/xml");
-                
+                // console.log(data);
                 var showData = data.getElementsByTagName("Show");
 
 
                 for (let i = 0; i < showData.length; i++) {
 
-                    // console.log(showData[i].getElementsByTagName("Images")[0].childNodes[3].innerHTML); -> src of image
+                    // console.log(showData[i].getElementsByTagName("Images")[0].childNodes[3].innerHTML); -> src của image
                     let img = showData[i].getElementsByTagName("Images")[0].childNodes[3].innerHTML;
                     let theatre = showData[i].getElementsByTagName("Theatre")[0].innerHTML;
                     let title = showData[i].getElementsByTagName("Title")[0].innerHTML;
@@ -53,7 +47,7 @@ class film extends Component {
                     this.theatreArr = [...this.theatreArr, theatre]
 
                 }
-                
+                // console.log(this.theatreArr[0]);
 
 
                 this.setState({
@@ -61,35 +55,53 @@ class film extends Component {
                     data: this.filmArr,
                     theatreList: this.theatreArr
                 })
-
+                let theatreList = this.theatreArr.filter((theatre, pos, arr) => {
+                    return arr.indexOf(theatre) === pos
+                })
+                // console.log(theatreList)
+                this.props.passingTheatreList(theatreList)
             })
-            .catch(error =>{
+            .catch(error => {
                 console.log(error);
             })
 
-
-
-        // console.log(this.state.data);
-
-        // console.log("hi");
-
-
-
     }
 
-    renderFilmItem = () => {
-
+    filterTheatreItem = (value) => {
         
-        var filmItemArr = this.state.data.map((film, index) => {
-            
+        switch (value) {
+            case "Tennispalatsi, Helsinki":
+            case "Itis, Helsinki":
+            case "Kinopalatsi, Helsinki":
+            case "Omena, Espoo":
+            case "Flamingo, Vantaa":
+            case "Sello, Espoo":
+            case "Maxim, Helsinki":
+                this.filterArr = this.state.data.filter((theatre) => {
+                    return theatre.theatre === value
+                })
+                break;
+            default: this.filterArr = this.state.data.map((theatre)=>{
+                return theatre
+            });
+        }
+        // console.log(this.filterArr)
+    }
+
+
+    renderFilmItem = () => {
+        this.filterTheatreItem(this.props.filterValue)
+        // console.log
+        // console.log(this.filterArr)
+        var filmItemArr = this.filterArr.map((film, index) => {
+            // console.log(this.filmArr);
             return <FilmItem
                 film={film}
                 key={index}
                 getFilmDetails={this.props.getFilmDetails}
             />
         })
-        
-        console.log('1')
+
         return filmItemArr;
 
 
@@ -111,14 +123,11 @@ class film extends Component {
             return <h1>Loading...</h1>
         }
         else {
-            
             return (
                 <section id="film" className="container-fluid pt-5 pb-5">
                     <h1 className="text-dark text-center mb-5">ON AIR</h1>
                     <div className="row">
-                        {/* {() => this.passTheatres(this.testList)} */}
                         {this.renderFilmItem()}
-                        {console.log(this.state.theatreList)}
                     </div>
                 </section>
             );

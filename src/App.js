@@ -12,16 +12,12 @@ class App extends Component {
     this.state = {
 
       quantity: 0,
-      filterValue: '',
+
       filmDetails: {}
     }
   }
 
-  getFilter = (value) => {
-    this.setState({
-      filterValue: value
-    })
-  }
+
 
   getFilmDetails = (film) => {
     this.setState({
@@ -35,7 +31,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Home getFilmDetails={this.getFilmDetails} filmDetails={this.state.filmDetails} getFilter={this.getFilter}  />
+        <Home getFilmDetails={this.getFilmDetails} filmDetails={this.state.filmDetails}  />
         {/* <ModalComponent filmDetails = {this.props.filmDetails}/> */}
       </div>
     );

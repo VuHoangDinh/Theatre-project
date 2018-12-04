@@ -5,9 +5,10 @@ class ModalComponent extends Component {
     addToCart = () => {
         this.props.addToCart();
     }
-    //Modal film info//
+
     render() {
         var { filmDetails } = this.props;
+        // => var phoneDetail = this.props.phoneDetails
         return (
             <div className="modal fade" id="myModal" tabIndex="-1" role="dialog">
                 <div className="modal-dialog" role="document">
@@ -42,6 +43,9 @@ class ModalComponent extends Component {
 
                         </div>
 
+                        {/* <div>
+
+                        </div> */}
                         <div className="modal-footer">
                             <button type="button" id="buyBtn" className="btn btn-success" onClick={this.addToCart}>Buy Ticket</button>
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
