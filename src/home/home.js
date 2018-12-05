@@ -49,13 +49,3 @@ class home extends Component {
 }
 
 export default home;
-
-
-// for (value in valueArr) {
-//     switch (value) {
-//         case value:
-//             return
-//             break;
-//         default abc
-//     }
-// }

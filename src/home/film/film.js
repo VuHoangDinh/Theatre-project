@@ -29,13 +29,13 @@ class film extends Component {
             .then(data => {
                 let parser = new DOMParser();
                 data = parser.parseFromString(data, "text/xml");
-                // console.log(data);
                 var showData = data.getElementsByTagName("Show");
 
 
                 for (let i = 0; i < showData.length; i++) {
 
                     // console.log(showData[i].getElementsByTagName("Images")[0].childNodes[3].innerHTML); -> src của image
+                    // Take out the needed elements
                     let img = showData[i].getElementsByTagName("Images")[0].childNodes[3].innerHTML;
                     let theatre = showData[i].getElementsByTagName("Theatre")[0].innerHTML;
                     let title = showData[i].getElementsByTagName("Title")[0].innerHTML;
@@ -47,7 +47,6 @@ class film extends Component {
                     this.theatreArr = [...this.theatreArr, theatre]
 
                 }
-                // console.log(this.theatreArr[0]);
 
 
                 this.setState({
@@ -55,18 +54,20 @@ class film extends Component {
                     data: this.filmArr,
                     theatreList: this.theatreArr
                 })
+
                 let theatreList = this.theatreArr.filter((theatre, pos, arr) => {
                     return arr.indexOf(theatre) === pos
                 })
-                // console.log(theatreList)
                 this.props.passingTheatreList(theatreList)
             })
+
             .catch(error => {
                 console.log(error);
             })
 
     }
 
+    //Theatre name filter
     filterTheatreItem = (value) => {
         
         switch (value) {
@@ -85,16 +86,12 @@ class film extends Component {
                 return theatre
             });
         }
-        // console.log(this.filterArr)
     }
 
-
+    // 
     renderFilmItem = () => {
         this.filterTheatreItem(this.props.filterValue)
-        // console.log
-        // console.log(this.filterArr)
         var filmItemArr = this.filterArr.map((film, index) => {
-            // console.log(this.filmArr);
             return <FilmItem
                 film={film}
                 key={index}
@@ -107,7 +104,7 @@ class film extends Component {
 
     }
 
-
+    
     passTheatres = (theater) => {
         let action = () => {
             this.props.getTheatreList();
